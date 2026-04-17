@@ -1,0 +1,108 @@
+:root {
+    --bg: #fffbf0;
+    --bg-dots: #f7e8c4;
+    --card: #ffffff;
+    --card2: #fff9ee;
+    --border: #1a1a2e;
+    --border-w: 2.5px;
+    --shadow: 4px 4px 0px #1a1a2e;
+    --shadow-lg: 6px 6px 0px #1a1a2e;
+    --shadow-xl: 8px 8px 0px #1a1a2e;
+
+    --text: #1a1a2e;
+    --text-sub: #4a4a6a;
+    --text-muted: #9898b8;
+    --text-inv: #ffffff;
+
+    --yellow: #ffd93d;
+    --coral: #ff6b6b;
+    --mint: #6bcb77;
+    --teal: #00c9a7;
+    --teal-d: #00a88c;
+    --orange: #ff922b;
+    --lavender: #c77dff;
+
+    --accent: var(--yellow);
+    --input-bg: #fff9ee;
+    --toggle-track: #e0d8ff;
+    --toggle-thumb: var(--lavender);
+    --tag-font: "Fredoka One", cursive;
+    --body-font: -apple-system, BlinkMacSystemFont, "Nunito", "Roboto", sans-serif;
+    --error-bg: #fff0f0;
+    --error-border: var(--coral);
+}
+
+:root.dark {
+    --bg: #1a1a2e;
+    --bg-dots: #16213e;
+    --card: #252545;
+    --card2: #1e1e3a;
+    --border: #e0d8ff;
+    --shadow: 4px 4px 0px #7c6fff;
+    --shadow-lg: 6px 6px 0px #7c6fff;
+    --shadow-xl: 8px 8px 0px #7c6fff;
+
+    --text: #f0eeff;
+    --text-sub: #b8b0e8;
+    --text-muted: #6860a8;
+    --text-inv: #1a1a2e;
+
+    --yellow: #ffd93d;
+    --coral: #ff6b6b;
+    --mint: #6bcb77;
+    --teal: #00c9a7;
+    --orange: #ff922b;
+    --lavender: #c77dff;
+
+    --accent: var(--lavender);
+    --input-bg: #1e1e3a;
+    --toggle-track: #252545;
+    --toggle-thumb: var(--yellow);
+    --error-bg: #2e1a1a;
+    --error-border: var(--coral);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--bg-dots) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 16px 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color .35s, color .35s;
+}
+
+#root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* scrollbar doodle */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 8px;
+    border: 2px solid var(--border);
+}

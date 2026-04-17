@@ -1,0 +1,463 @@
+:root {
+    --bg: #fffbf0;
+    --bg-dots: #f7e8c4;
+    --card: #ffffff;
+    --card2: #fff9ee;
+    --border: #1a1a2e;
+    --border-w: 2.5px;
+    --shadow: 4px 4px 0px #1a1a2e;
+    --shadow-lg: 6px 6px 0px #1a1a2e;
+    --shadow-xl: 8px 8px 0px #1a1a2e;
+
+    --text: #1a1a2e;
+    --text-sub: #4a4a6a;
+    --text-muted: #9898b8;
+    --text-inv: #ffffff;
+
+    --yellow: #ffd93d;
+    --yellow-d: #f0c420;
+    --coral: #ff6b6b;
+    --coral-d: #e85555;
+    --mint: #6bcb77;
+    --mint-d: #4db85a;
+    --pink: #ff9ff3;
+    --teal: #00c9a7;
+    --teal-d: #00a88c;
+    --orange: #ff922b;
+    --lavender: #c77dff;
+
+    --accent: var(--yellow);
+    --input-bg: #fff9ee;
+    --toggle-track: #e0d8ff;
+    --toggle-thumb: var(--lavender);
+    --tag-font: "Fredoka One", cursive;
+    --body-font: -apple-system, BlinkMacSystemFont, "Nunito", "Roboto", sans-serif;
+    --error-bg: #fff0f0;
+    --error-border: var(--coral);
+}
+
+/* ═══════════════════════════════════════════════════
+       DARK ROOT — cozy dark mode 
+    ═══════════════════════════════════════════════════ */
+:root.dark {
+    --bg: #1a1a2e;
+    --bg-dots: #16213e;
+    --card: #252545;
+    --card2: #1e1e3a;
+    --border: #e0d8ff;
+    --shadow: 4px 4px 0px #7c6fff;
+    --shadow-lg: 6px 6px 0px #7c6fff;
+    --shadow-xl: 8px 8px 0px #7c6fff;
+
+    --text: #f0eeff;
+    --text-sub: #b8b0e8;
+    --text-muted: #6860a8;
+    --text-inv: #1a1a2e;
+
+    --yellow: #ffd93d;
+    --coral: #ff6b6b;
+    --mint: #6bcb77;
+    --teal: #00c9a7;
+    --orange: #ff922b;
+    --lavender: #c77dff;
+
+    --accent: var(--lavender);
+    --input-bg: #1e1e3a;
+    --toggle-track: #252545;
+    --toggle-thumb: var(--yellow);
+    --error-bg: #2e1a1a;
+    --error-border: var(--coral);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--body-font);
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--bg-dots) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 16px 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    transition: background-color .35s, color .35s;
+}
+
+/* scrollbar doodle */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--card);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 8px;
+    border: 2px solid var(--border);
+}
+
+/* theme toggle */
+.toggle-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.t-track {
+    width: 58px;
+    height: 30px;
+    background: var(--toggle-track);
+    border: var(--border-w) solid var(--border);
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: background .3s;
+}
+
+.t-track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: var(--toggle-thumb);
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+    box-shadow: 2px 2px 0 var(--border);
+}
+
+:root.dark .t-track::after {
+    transform: translateX(28px);
+}
+
+.t-emoji i {
+    font-size: 18px;
+    color: var(--text-sub);
+}
+
+/* main signup card */
+.signup-card {
+    width: 100%;
+    max-width: 580px;
+    background: var(--card);
+    border: var(--border-w) solid var(--border);
+    border-radius: 28px;
+    box-shadow: var(--shadow-xl);
+    padding: 28px 32px;
+    transition: background .3s, box-shadow .3s;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.form-header h2 {
+    font-family: var(--tag-font);
+    font-size: 28px;
+    color: var(--text);
+    letter-spacing: -0.2px;
+}
+
+.form-header p {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+    letter-spacing: .3px;
+}
+
+.input-group label i {
+    font-size: 16px;
+    color: var(--teal);
+}
+
+.doodle-input {
+    width: 100%;
+    background: var(--input-bg);
+    border: var(--border-w) solid var(--border);
+    border-radius: 14px;
+    padding: 13px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--body-font);
+    color: var(--text);
+    outline: none;
+    transition: border .2s, box-shadow .2s;
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .04);
+}
+
+.doodle-input:focus {
+    border-color: var(--teal);
+    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, .04), 0 0 0 3px rgba(0, 201, 167, .18);
+}
+
+.error-msg {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--coral);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-primary {
+    background: var(--teal);
+    color: var(--text-inv);
+    border: var(--border-w) solid var(--border);
+    border-radius: 40px;
+    padding: 14px 20px;
+    font-family: var(--tag-font);
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+    margin-top: 6px;
+}
+
+.btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--border);
+}
+
+.google-btn {
+    background: var(--card2);
+    color: var(--text);
+    border: var(--border-w) solid var(--border);
+    border-radius: 40px;
+    padding: 12px 16px;
+    font-weight: 800;
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all .18s;
+    margin-top: 12px;
+    font-family: var(--body-font);
+}
+
+.google-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+    background: var(--card);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0 16px;
+}
+
+.divider-line {
+    flex: 1;
+    height: 2.5px;
+    background: var(--border);
+    opacity: 0.3;
+}
+
+.divider span {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.login-redirect {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-sub);
+}
+
+.login-redirect a {
+    color: var(--coral);
+    font-weight: 800;
+    text-decoration: none;
+    border-bottom: 2px solid var(--coral);
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+/* ═════ OTP MODAL (popup doodle style) ═════ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.25s;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.otp-modal {
+    background: var(--card);
+    border: var(--border-w) solid var(--border);
+    border-radius: 32px;
+    box-shadow: var(--shadow-xl);
+    width: 90%;
+    max-width: 380px;
+    padding: 28px 24px;
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.2s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.modal-overlay.active .otp-modal {
+    transform: scale(1);
+}
+
+.otp-modal h3 {
+    font-family: var(--tag-font);
+    font-size: 26px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.otp-modal p {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+}
+
+.otp-input {
+    width: 100%;
+    background: var(--input-bg);
+    border: var(--border-w) solid var(--border);
+    border-radius: 16px;
+    padding: 14px;
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 6px;
+    font-family: monospace;
+    color: var(--text);
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 40px;
+    font-family: var(--tag-font);
+    font-weight: 600;
+    cursor: pointer;
+    border: var(--border-w) solid var(--border);
+    background: var(--card2);
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: var(--shadow);
+}
+
+.modal-btn.verify {
+    background: var(--mint);
+    color: #1a1a2e;
+}
+
+.modal-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.resend-link {
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--lavender);
+    cursor: pointer;
+    display: inline-block;
+    border-bottom: 2px dotted var(--lavender);
+}
+
+.success-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: var(--mint);
+    color: #1a1a2e;
+    padding: 12px 24px;
+    border-radius: 60px;
+    font-weight: 800;
+    font-family: var(--tag-font);
+    border: var(--border-w) solid var(--border);
+    box-shadow: var(--shadow-lg);
+    z-index: 1100;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+.success-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+@media (max-width: 520px) {
+    .signup-card {
+        padding: 20px;
+    }
+}

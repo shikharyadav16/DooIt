@@ -13,7 +13,7 @@ export const handleGetAllTodos = asyncHandler(async (req: AuthRequest, res: Resp
     const userId = req.userId;
     if (!userId) return res.status(403).json({ success: false, message: "Unauthorized" });
 
-    const todos: ITodo[] = await Todo.find({ createdBy: userId }).lean();
+    const todos: ITodo[] = await Todo.find({ createdBy: userId }).sort({ createdAt: -1 }).lean();
     if (!todos || todos.length === 0) {
         return res.json({ success: true, todos: [] })
     }
@@ -32,7 +32,7 @@ export const handleCreateTodo = asyncHandler(async (req: AuthRequest, res: Respo
     const userId = req.userId;
     if (!userId) return res.status(403).json({ success: false, message: "Unauthorized" });
 
-    const { text, priority, done }: ITodo = req.body;
+    const { text, priority, done = false }: ITodo = req.body;
 
     const validTypes = ["low", "medium", "high"];
 
@@ -61,19 +61,14 @@ export const handleUpdateTodo = asyncHandler(async (req: AuthRequest, res: Respo
     const userId = req.userId;
     if (!userId) return res.status(403).json({ success: false, message: "Unauthorized" });
 
-    const { todoId, text, done, priority } = req.body;
-    const validTypes = ["low", "medium", "high"];
+    const { todoId, text } = req.body;
 
-    if (!todoId || typeof todoId !== "string") return res.status(401).json({ success: false, message: "Invalid Todo" });4
-    if (!priority || !validTypes.includes(priority)) return res.status(401).json({ success: false, message: "Invalid priority type" });
+    if (!todoId || typeof todoId !== "string") return res.status(401).json({ success: false, message: "Invalid Todo" });
     if (!text || typeof text !== "string") return res.status(401).json({ success: false, message: "Invalid text content" });
-    if (typeof done !== "boolean") return res.status(401).json({ success: false, message: "Invalid done type" });
 
-    const todo = await Todo.updateOne({ _id: todoId, createdBy: userId }, { 
+    const todo = await Todo.updateOne({ _id: todoId, createdBy: userId }, {
         $set: {
             text,
-            done,
-            priority
         }
     });
 
@@ -81,19 +76,60 @@ export const handleUpdateTodo = asyncHandler(async (req: AuthRequest, res: Respo
 });
 
 /**
- * @description Delete Todo
- * @route DELETE /api/delete
- * @access user
- * @body { todoId: string }
+ * @description Toggle the completion status of Todo
+ * @route PATCH /todo/:todoId
+ * @access User
  */
 
-export const handleDeleteTodo = asyncHandler(async(req: AuthRequest, res: Response) => {
+export const handleToggleCompleted = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const { todoId } = req.params;
+    if (!todoId || typeof todoId !== "string") return res.status(403).json({ success: false, message: "Invalid Todo ID" });
+
+    const todo = await Todo.findById(todoId);
+    if (!todo) return res.status(404).json({ success: false, message: "Invalid Todo ID" })
+    todo.done = !todo.done;
+    await todo.save(); return res.status(201).json({ success: true, message: "Toggle successfull", todo: todo || [] });
+})
+
+/**
+ * @description Delete Todo
+ * @route DELETE /api/todo/:todoId
+ * @access user
+ */
+
+export const handleDeleteTodo = asyncHandler(async (req: AuthRequest, res: Response) => {
     const userId = req.userId;
     if (!userId) return res.status(403).json({ success: false, message: "Unauthorized" });
 
-    const { todoId } = req.body;
-    if (!todoId || typeof todoId !== "string") return res.status(401).json({ success: false, message: "Invalid Todo" });4
+    const todoId = req.params.todoId
+    if (!todoId || typeof todoId !== "string") return res.status(401).json({ success: false, message: "Invalid Todo" }); 4
 
     const todo = await Todo.deleteOne({ createdBy: userId, _id: todoId });
     return res.status(201).json({ success: true, message: "Deleted succesffuly", todo });
-})
+});
+
+/**
+ * @description Delete Multiple Todo
+ * @route DELETE /api/todo
+ * @access user
+ * @body {text?:string, done?:boolean} 
+ */
+
+export const handleDeleteTodos = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const userId = req.userId;
+
+    if (!userId) {
+        return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+    const { done } = req.query;
+    if (typeof done === "undefined") { return res.status(400).json({ success: false, message: "Please provide 'done' query param" });}
+
+    const parsedDone = done === "true";
+
+    await Todo.deleteMany({ createdBy: userId, done: parsedDone });
+
+    return res.status(200).json({
+        success: true,
+        message: `Deleted ${parsedDone ? "completed" : "active"} todos`
+    });
+});
