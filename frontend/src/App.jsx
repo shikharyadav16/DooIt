@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home"
 import Login from "./features/auth/Login"
 import Signup from "./features/auth/Signup"
-import AuthChecker from './utils/checkAuth';
+import AuthChecker from './utils/CheckAuth';
 
 function App() {
 
