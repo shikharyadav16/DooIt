@@ -3,6 +3,10 @@
     {
       "src": "/api/(.*)",
       "dest": "http://doo-it.eba-ji4qxarn.eu-north-1.elasticbeanstalk.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
