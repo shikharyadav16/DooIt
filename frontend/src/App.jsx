@@ -8,16 +8,24 @@ import AuthChecker from './utils/checkAuth';
 
 function App() {
 
-  
+
   return (
     <>
-      <AuthChecker />;
-        <Routes>
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/dashboard' element={<Home />} />
-          <Route path='*' element={<Navigate to='/dashboard' />} />
-        </Routes>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route
+          path='/dashboard'
+          element={
+            <AuthChecker>
+              <Home />
+            </AuthChecker>
+          }
+        />
+
+        {/* Catch all */}
+        <Route path='*' element={<Navigate to='/dashboard' />} />
+      </Routes>
     </>
   )
 }
