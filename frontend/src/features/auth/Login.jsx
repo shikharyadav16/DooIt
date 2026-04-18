@@ -46,14 +46,6 @@ export default function Login() {
 
     return (
         <>
-            {card && (
-                <InfoCard
-                    key={Date.now()}
-                    type={card.type}
-                    title={card.title}
-                    message={card.message}
-                />
-            )}
             <div className="login-card">
                 <div className="form-header">
                     <h2><i className="ph ph-lock-key"></i> log in</h2>
