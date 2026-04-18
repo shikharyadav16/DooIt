@@ -4,26 +4,30 @@ import checkSignupVerificationDetails from "./utils/checkSignupVerificationDetai
 import { verifySignup } from "../../services/auth.service";
 import { setIsAuthenticated, setUser } from "../../redux/authSlice";
 
-export default function OtpVerification({ isOpen, setIsOpen, email }) {
+export default function OtpVerification({ isOpen, setIsOpen }) {
 
     const [otp, setOtp] = useState("");
     const dispatch = useDispatch();
 
     async function handleSignupVerification() {
+        const email = localStorage.getItem("email")
         const check = checkSignupVerificationDetails({ email, otp });
         if (!check.success) return console.log("Invalid:", check.message);
 
+        console.log({otp, email})
+
         const data = await verifySignup({otp, email});
+        console.log(data, "data")
         if (data.success) {
-            console.log("Signup successfull", data?.user);
             dispatch(setIsAuthenticated(true));
             dispatch(setUser(data.user));
+            setIsOpen(prev => !prev)
             // setIsAuthenticated
         } else {
+            alert(data.message)
             console.log(data.message)
         }
         setOtp("")
-        setIsOpen(prev => !prev)
     }
 
     return (

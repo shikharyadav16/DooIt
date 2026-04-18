@@ -27,13 +27,16 @@ export default function Signup() {
         setLoading(true)
         const data = await signup(payload);
         if (data.success) {
+            localStorage.setItem("email", email);
             setName("")
             setEmail("")
             setPassword("")
             setConfirmPass("")
             setIsOpen(prev => !prev)
         } else {
-            alert("Error:", data.message)
+            console.log(data.message)
+            alert(data.message)
+            // alert("Error:", data.message)
         }
         setLoading(false)
     }

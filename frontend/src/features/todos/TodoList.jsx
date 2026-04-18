@@ -31,9 +31,8 @@ export default function TodoList({ todos, filter }) {
         const data = await deleteTodo({ _id: id });
         if (data.success) {
             dispatch(removeTodo(id))
-            setCard({ type: "success", title: "Delete", message: data.message })
         } else {
-            setCard({ type: "warning", title: "Delete", message: data.message })
+            alert(data.message)
         }
         setLoading(false)
     }
@@ -46,7 +45,7 @@ export default function TodoList({ todos, filter }) {
         if (data.success) {
             dispatch(toggleCompletion(id))
         } else {
-            setCard({ type: "warning", title: "Toggle", message: data.message })
+            alert(data.message)
         }
         setLoading(false)
     }

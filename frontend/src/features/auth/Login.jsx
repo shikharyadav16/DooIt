@@ -12,15 +12,14 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
 
-    const [card, setCard] = useState(null)
-
     const dispatch = useDispatch();
 
     async function handleLogin() {
         if (loading) return;
         const response = checkLoginDetails({ email, password })
         if (!response.success) {
-            console.log(response.message)
+            console.log(response)
+            return;
         }
 
         const payload = response.data;
@@ -32,6 +31,7 @@ export default function Login() {
             setEmail("")
             setPassword("")
         } else {
+            alert(data.message)
             console.log(data.message)
         }
         setLoading(false)
