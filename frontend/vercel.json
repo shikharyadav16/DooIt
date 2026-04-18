@@ -5,6 +5,14 @@
       "dest": "http://doo-it.eba-ji4qxarn.eu-north-1.elasticbeanstalk.com/api/$1"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|svg|ico|webmanifest))",
+      "dest": "/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
